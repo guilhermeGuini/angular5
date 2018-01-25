@@ -1,39 +1,64 @@
-<form fxLayout="column">
+<form [formGroup]="form" fxLayout="column">
     <mat-form-field fxFlex="100">
-      <input matInput placeholder="Nome" value="">
+      <input matInput formControlName="nome" placeholder="Nome">
+      <mat-error *ngIf="form.controls['nome'].hasError('required')">Informe o nome!</mat-error>
     </mat-form-field>
 
     <mat-form-field fxFlex="100">
-        <input matInput placeholder="E-mail" value="">
+        <input matInput formControlName="email" placeholder="E-mail">
+        <mat-error *ngIf="form.controls['email'].hasError('required')">Informe o e-mail!</mat-error>
+        <mat-error *ngIf="form.controls['email'].hasError('email')
+                && !form.controls['email'].hasError('required')">E-mail inválido!</mat-error>
     </mat-form-field>
 
     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
       <mat-form-field fxFlex="49" fxFlex.xs="100">
-          <input matInput placeholder="Login" value="">
+          <input matInput formControlName="login" placeholder="Login">
+          <mat-error *ngIf="form.controls['login'].hasError('required')">Informe o login!</mat-error>
       </mat-form-field>
 
       <mat-form-field fxFlex="49" fxFlex.xs="100">
-          <mat-select placeholder="Perfil">
+          <mat-select formControlName="perfil" placeholder="Perfil">
             <mat-option *ngFor="let perfil of perfis" [value]="perfil.id">
               {{ perfil.descricao }}
             </mat-option>
           </mat-select>
+          <mat-error *ngIf="form.controls['perfil'].hasError('required')">Escolha um perfil!</mat-error>
       </mat-form-field>
     </div>
 
     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
       <mat-form-field fxFlex="49" fxFlex.xs="100">
-          <input matInput placeholder="Senha" type="password" value="">
+          <input matInput formControlName="senha" [type]="hideSenha ? 'password' : 'text'" placeholder="Senha" type="password" >
+          <mat-icon matSuffix (click)="hideSenha = !hideSenha">{{hideSenha ? 'visibility' : 'visibility_off'}}</mat-icon>  
+          <mat-error *ngIf="form.controls['senha'].hasError('required')">Informe a senha!</mat-error>
       </mat-form-field>
 
       <mat-form-field fxFlex="49" fxFlex.xs="100">
-          <input matInput placeholder="Confirmação" value="">
+          <input matInput formControlName="confirmacao" placeholder="Confirmação">
+          <mat-icon matSuffix (click)="hideConfirmacao = !hideConfirmacao">{{hideConfirmacao ? 'visibility' : 'visibility_off'}}</mat-icon>  
+          <mat-error *ngIf="form.controls['confirmacao'].hasError('required')">Informe a confirmação da senha!</mat-error>
       </mat-form-field>
   </div>
-
-  <div fxLayout="row" 
+  <br/>
+  <div  fxLayout="row" 
     fxFlex="100" fxLayoutAlign="space-between">
-      <button fxFlexAlign="left" color="primary" mat-raised-button>Cadastrar</button>
-      <button fxFlexAlign="right" color="warn" mat-raised-button>Cancelar</button>
+      <button
+        [disabled]="form.invalid"
+        type="button"  
+        color="primary"
+        mat-raised-button>Save</button>
+    
+      <button
+        type="button"  
+        color="primary"
+        mat-raised-button
+        (click)="clearForm()">Clear</button>
+
+      <button 
+        type="button"
+        routerLink="/main/usuario/consulta"
+        color="warn"
+        mat-raised-button>Cancel</button>
   </div>
 </form>

@@ -32,10 +32,14 @@
     <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef> Ações </mat-header-cell>
         <mat-cell *matCellDef="let usuario"> 
-          <button mat-icon-button matTooltip="Editar"  (click)="delete(usuario.id)" color="primary">
+          <button 
+            routerLink="/main/usuario/{id}"
+            mat-icon-button 
+            matTooltip="Editar" 
+            color="primary">
             <mat-icon class="md-24" aria-label="Editar">edit</mat-icon>
           </button>
-          <button mat-icon-button matTooltip="Deletar" (click)="edit(usuario)"  color="warn">
+          <button mat-icon-button matTooltip="Deletar" color="warn">
               <mat-icon class="md-24" aria-label="Deletar">delete</mat-icon>
             </button>
         </mat-cell>
@@ -45,7 +49,9 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 
-  <button color="primary" mat-fab
+  <button 
+    color="primary" 
+    mat-fab
     routerLink="/main/usuario/adicionar">
     <mat-icon 
       aria-label="Adicionar"
