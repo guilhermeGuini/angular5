@@ -1,0 +1,39 @@
+<form fxLayout="column">
+    <mat-form-field fxFlex="100">
+      <input matInput placeholder="Nome" value="">
+    </mat-form-field>
+
+    <mat-form-field fxFlex="100">
+        <input matInput placeholder="E-mail" value="">
+    </mat-form-field>
+
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+      <mat-form-field fxFlex="49" fxFlex.xs="100">
+          <input matInput placeholder="Login" value="">
+      </mat-form-field>
+
+      <mat-form-field fxFlex="49" fxFlex.xs="100">
+          <mat-select placeholder="Perfil">
+            <mat-option *ngFor="let perfil of perfis" [value]="perfil.id">
+              {{ perfil.descricao }}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+      <mat-form-field fxFlex="49" fxFlex.xs="100">
+          <input matInput placeholder="Senha" type="password" value="">
+      </mat-form-field>
+
+      <mat-form-field fxFlex="49" fxFlex.xs="100">
+          <input matInput placeholder="Confirmação" value="">
+      </mat-form-field>
+  </div>
+
+  <div fxLayout="row" 
+    fxFlex="100" fxLayoutAlign="space-between">
+      <button fxFlexAlign="left" color="primary" mat-raised-button>Cadastrar</button>
+      <button fxFlexAlign="right" color="warn" mat-raised-button>Cancelar</button>
+  </div>
+</form>
