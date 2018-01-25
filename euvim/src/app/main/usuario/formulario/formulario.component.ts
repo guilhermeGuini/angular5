@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { EqualsPasswordValidator } from '../../validators/EqualsPasswordValidator';
 
 @Component({
   selector: 'app-formulario',
@@ -34,7 +35,8 @@ export class FormularioComponent implements OnInit {
       perfil: ['', Validators.required],
       senha: ['', Validators.required],
       confirmacao: ['', Validators.required]
-    });
+    }, {validator: 
+          EqualsPasswordValidator.validate("senha", "confirmacao")});
 
   }
   

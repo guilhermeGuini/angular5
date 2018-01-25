@@ -38,6 +38,7 @@
           <input matInput formControlName="confirmacao" placeholder="Confirmação">
           <mat-icon matSuffix (click)="hideConfirmacao = !hideConfirmacao">{{hideConfirmacao ? 'visibility' : 'visibility_off'}}</mat-icon>  
           <mat-error *ngIf="form.controls['confirmacao'].hasError('required')">Informe a confirmação da senha!</mat-error>
+          <mat-error *ngIf="form.controls['confirmacao'].hasError('passwordEquals')">Confirmação não confere!</mat-error>
       </mat-form-field>
   </div>
   <br/>
