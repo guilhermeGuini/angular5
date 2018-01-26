@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { EqualsPasswordValidator } from '../../validators/EqualsPasswordValidator';
+import { UsuarioService } from '../usuario.service';
 
 @Component({
   selector: 'app-formulario',
@@ -21,7 +22,7 @@ export class FormularioComponent implements OnInit {
   hideSenha = true;
   hideConfirmacao = true;
 
-  constructor(private _formBuilder: FormBuilder) { 
+  constructor(private _formBuilder: FormBuilder, private _usuarioService: UsuarioService) { 
     this.form = this._formBuilder.group({
       id: [''],
       nome: ['', Validators.required],
@@ -34,13 +35,23 @@ export class FormularioComponent implements OnInit {
       login: ['', Validators.required],
       perfil: ['', Validators.required],
       senha: ['', Validators.required],
-      confirmacao: ['', Validators.required]
+      confirmacao: ''//['', Validators.required]
     }, {validator: 
           EqualsPasswordValidator.validate("senha", "confirmacao")});
 
   }
   
   ngOnInit() {
+  }
+
+  save() {
+    let usuario = {'id': this.form.controls['id'].value,
+                   'nome': this.form.controls['nome'].value,
+                   'email': this.form.controls['email'].value,
+                   'login': this.form.controls['login'].value,
+                   'perfil': this.form.controls['perfil'].value,
+                   'senha': this.form.controls['senha'].value};
+    this._usuarioService.add(usuario);
   }
 
   clearForm() {

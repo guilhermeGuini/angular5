@@ -10,6 +10,7 @@ import { MatIconModule, MatSidenavModule, MatCardModule, MatListModule, MatToolb
 import { ConsultaComponent } from './usuario/consulta/consulta.component';
 import { FormularioComponent } from './usuario/formulario/formulario.component';
 import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms';
+import { UsuarioService } from './usuario/usuario.service';
 
 @NgModule({
   imports: [
@@ -36,6 +37,6 @@ import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms';
     ConsultaComponent, 
     FormularioComponent
   ],
-  providers: [FormBuilder]
+  providers: [FormBuilder, UsuarioService]
 })
 export class MainModule { }
