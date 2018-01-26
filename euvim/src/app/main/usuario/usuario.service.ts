@@ -4,10 +4,10 @@ import { Injectable } from '@angular/core';
 export class UsuarioService {
 
   private mock =  [
-    {id: 1, nome: 'Hydrogen', login: 'hydrogen', email: 'hydrogen@net.com', perfil: 'Admin'},
-    {id: 2, nome: 'Helium', login: 'helium', email: 'helium@net.com',  perfil: 'User'},
-    {id: 3, nome: 'Lithium', login: 'lithium', email: 'lithium@net.com',  perfil: 'Admin'},
-    {id: 4, nome: 'Berayllium', login: 'bery', email: 'bery@net.com',  perfil: 'Admin'}
+    {id: 1, nome: 'Hydrogen', login: 'hydrogen', email: 'hydrogen@net.com', perfil: 'ADMINISTRADOR'},
+    {id: 2, nome: 'Helium', login: 'helium', email: 'helium@net.com',  perfil: 'PROFESSOR'},
+    {id: 3, nome: 'Lithium', login: 'lithium', email: 'lithium@net.com',  perfil: 'ADMINISTRADOR'},
+    {id: 4, nome: 'Berayllium', login: 'bery', email: 'bery@net.com',  perfil: 'ALUNO'}
   ];
 
   constructor() { }

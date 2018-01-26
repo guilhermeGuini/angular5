@@ -6,7 +6,7 @@ import { MainRouting } from './main.routing';
 import { RouterModule } from '@angular/router';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatIconModule, MatSidenavModule, MatCardModule, MatListModule, MatToolbarModule, MatButtonModule, MatTableModule, MatTooltipModule, MatFormFieldModule, MatInputModule, MatSelectModule} from '@angular/material';
+import { MatIconModule, MatSidenavModule, MatCardModule, MatListModule, MatToolbarModule, MatButtonModule, MatTableModule, MatTooltipModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDialogModule} from '@angular/material';
 import { ConsultaComponent } from './usuario/consulta/consulta.component';
 import { FormularioComponent } from './usuario/formulario/formulario.component';
 import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms';
@@ -30,7 +30,8 @@ import { UsuarioService } from './usuario/usuario.service';
     MatInputModule,
     MatSelectModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule
   ],
   declarations: [
     MainComponent, 

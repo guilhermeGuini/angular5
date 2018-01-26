@@ -35,10 +35,14 @@
       </mat-form-field>
 
       <mat-form-field fxFlex="49" fxFlex.xs="100">
-          <input matInput formControlName="confirmacao" placeholder="Confirmação">
+          <input matInput formControlName="confirmacao" [type]="hideConfirmacao ? 'password' : 'text'" placeholder="Confirmação">
           <mat-icon matSuffix (click)="hideConfirmacao = !hideConfirmacao">{{hideConfirmacao ? 'visibility' : 'visibility_off'}}</mat-icon>  
-          <!--<mat-error *ngIf="form.controls['confirmacao'].hasError('required')">Informe a confirmação da senha!</mat-error>
-          <mat-error *ngIf="form.controls['confirmacao'].hasError('passwordEquals')">Confirmação não confere!</mat-error>-->
+          <mat-error *ngIf="form.controls['confirmacao'].hasError('required')">
+            Campo obrigatório
+          </mat-error>
+          <mat-error *ngIf="form.controls['confirmacao'].hasError('passwordEquals') && !form.controls['confirmacao'].hasError('required')">
+            Campo Confirmação não é igual ao campo Senha
+          </mat-error>
       </mat-form-field>
   </div>
   <br/>

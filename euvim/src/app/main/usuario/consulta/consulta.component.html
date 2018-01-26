@@ -32,22 +32,22 @@
     <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef> Ações </mat-header-cell>
         <mat-cell *matCellDef="let usuario"> 
-          <button 
-            routerLink="/main/usuario/{id}"
-            mat-icon-button 
-            matTooltip="Editar" 
-            color="primary">
+          <button mat-icon-button matTooltip="Editar" (click)="edit(usuario.id)" color="primary">
             <mat-icon class="md-24" aria-label="Editar">edit</mat-icon>
           </button>
-          <button mat-icon-button matTooltip="Deletar" color="warn">
+          <button mat-icon-button matTooltip="Deletar" (click)="excluir(usuario.id)" color="warn">
               <mat-icon class="md-24" aria-label="Deletar">delete</mat-icon>
-            </button>
+          </button>
         </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
+
+  <div class="table-empty" *ngIf="dataSource.data.length == 0">
+    <p>Nenhum usuário encontrado!</p>
+  </div>
 
   <button 
     color="primary" 
