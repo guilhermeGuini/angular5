@@ -22,15 +22,18 @@ export class ConsultaComponent implements OnInit {
   }
 
   private getUsuarios() {
-    let lista = this._usuarioService.list();
-    this.dataSource = new MatTableDataSource<any>(lista);
+    this._usuarioService.list().subscribe(suc => {
+      console.dir(suc);
+      this.dataSource = new MatTableDataSource<any>(suc);
+    });
   }
 
   public excluir(id) {
     var canDelete = confirm('Tem certeza que sejesa excluir?');
     if(canDelete) {
-      this._usuarioService.delete(id);
-      this.getUsuarios();
+      this._usuarioService.delete(id).subscribe(suc=> {
+        this.getUsuarios();   
+      });
     }
   }
 

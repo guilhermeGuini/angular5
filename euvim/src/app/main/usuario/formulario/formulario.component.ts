@@ -45,14 +45,19 @@ export class FormularioComponent implements OnInit {
   save() {
     if(this.form.valid) {
       if(this.id) {
-        this._usuarioService.edit(this.form.value);
+        this._usuarioService.edit(this.form.value)
+          .subscribe(suc=> {
+            this.form.reset();
+            this._router.navigate(['/main/usuario/consulta']);  
+          });
       } else {      
-        this._usuarioService.add(this.form.value);
+        this._usuarioService.add(this.form.value)
+          .subscribe(suc=>{
+            this.form.reset();
+            this._router.navigate(['/main/usuario/consulta']);  
+          });
       }
     }
-    
-    this.form.reset();
-    this._router.navigate(['/main/usuario/consulta']);
   }
 
   clearForm() {
@@ -85,12 +90,15 @@ export class FormularioComponent implements OnInit {
   }
 
   private loadUsuario(){
-    let usuario = <any> this._usuarioService.findById(this.id);
-    usuario.senha = null;
-    usuario.confirmacao = null;
-    this.form.setValue(usuario);
-    this.form.get('senha').setValidators(null);
-    this.form.get('confirmacao').setValidators(null);
+    this._usuarioService.findById(this.id)
+      .subscribe(usuarioRetorno => {
+        usuarioRetorno.senha = null;
+        usuarioRetorno.confirmacao = null;
+        delete usuarioRetorno.urlFoto;
+        this.form.get('senha').setValidators(null);
+        this.form.get('confirmacao').setValidators(null);
+        this.form.setValue(usuarioRetorno);
+      });
   }
 }
 
