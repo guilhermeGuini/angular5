@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MainComponent } from './main.component';
-import { ConsultaComponent } from './usuario/consulta/consulta.component';
-import { FormularioComponent } from './usuario/formulario/formulario.component';
 
 @NgModule({
   imports: [
@@ -11,16 +9,12 @@ import { FormularioComponent } from './usuario/formulario/formulario.component';
         component: MainComponent,
         children: [
           {
-            path: 'usuario/consulta',
-            component: ConsultaComponent
-          }, 
-          {
-            path: 'usuario/adicionar',
-            component: FormularioComponent
+            path: 'usuario',
+            loadChildren: './usuario/usuario.module#UsuarioModule'
           },
           {
-            path: 'usuario/editar/:id',
-            component: FormularioComponent
+            path: 'disciplina',
+            loadChildren: './disciplina/disciplina.module#DisciplinaModule'
           }
         ]
       }

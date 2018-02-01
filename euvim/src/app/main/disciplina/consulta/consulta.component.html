@@ -1,0 +1,65 @@
+<div class="mat-elevation-z8">
+  <mat-table #table [dataSource]="dataSource">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="descricao">
+      <mat-header-cell *matHeaderCellDef> Descrição </mat-header-cell>
+      <mat-cell *matCellDef="let disciplina"> {{disciplina.descricao}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="instrutores">
+      <mat-header-cell *matHeaderCellDef> Instrutores </mat-header-cell>
+      <mat-cell *matCellDef="let disciplina"> {{disciplina.instrutores}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="dataInicio">
+      <mat-header-cell *matHeaderCellDef> Data início </mat-header-cell>
+      <mat-cell *matCellDef="let disciplina"> {{disciplina.dataInicio | date: 'dd/MM/yyyy'}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="dataTermino">
+      <mat-header-cell *matHeaderCellDef> Data término </mat-header-cell>
+      <mat-cell *matCellDef="let disciplina"> {{disciplina.dataTermino | date: 'dd/MM/yyyy'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="segmento">
+      <mat-header-cell *matHeaderCellDef> Segmento </mat-header-cell>
+      <mat-cell *matCellDef="let disciplina"> {{disciplina.segmento}} </mat-cell>
+    </ng-container>
+    
+    <!-- Button Edit -->
+    <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef> Ações </mat-header-cell>
+        <mat-cell *matCellDef="let disciplina"> 
+          <button mat-icon-button matTooltip="Editar" (click)="edit(disciplina.id)" color="primary">
+            <mat-icon class="md-24" aria-label="Editar">edit</mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="Deletar" (click)="excluir(disciplina.id)" color="warn">
+              <mat-icon class="md-24" aria-label="Deletar">delete</mat-icon>
+          </button>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <div class="table-empty" *ngIf="dataSource && dataSource.data.length == 0">
+    <p>Nenhuma disciplina encontrado!</p>
+  </div>
+
+  <button 
+    color="primary" 
+    mat-fab
+    routerLink="/main/disciplina/adicionar">
+    <mat-icon 
+      aria-label="Adicionar"
+      matTooltip="Incluir disciplina">add</mat-icon>
+  </button>
+</div>
