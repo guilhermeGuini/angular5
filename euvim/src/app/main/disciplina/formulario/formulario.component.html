@@ -1,7 +1,7 @@
 <form [formGroup]="form" fxLayout="column">
   <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
       <mat-form-field fxFlex="20" fxFlex.xs="100">
-          <mat-select formControlName="segmento" placeholder="Segmento">
+          <mat-select formControlName="segmento" placeholder="Segmentos">
             <mat-option *ngFor="let segmento of segmentos" [value]="segmento.id">
               {{ segmento.descricao }}
             </mat-option>
@@ -40,9 +40,11 @@
   <div>
       <mat-form-field fxFlex="70" fxFlex.xs="70">
           <mat-select placeholder="Instrutores">
-              Null
+            <mat-option *ngFor="let instrutor of instrutores" [value]="instrutor.id">
+              {{ instrutor.nome }}
+            </mat-option>
           </mat-select>
-          <mat-error *ngIf="form.controls['instrutores'].hasError('required')">Escolha um instrutor!</mat-error>
+          <!--<mat-error *ngIf="form.controls['instrutor'].hasError('required')">Escolha um instrutor!</mat-error>-->
       </mat-form-field>
       <button fxFlexOffset="10px" color="primary" mat-mini-fab type="button">
         <mat-icon aria-label="Adicionar" matTooltip="Incluir disciplina">add</mat-icon>

@@ -11,6 +11,6 @@ export class InstrutorService {
 
   getAll() {
     let httpParams = new HttpParams().set("tipo", "PROFESSOR");
-    return this._httpClient.get(this._url, { params: httpParams });
+    return this._httpClient.get<Array<any>>(this._url, { params: httpParams });
   }
 }

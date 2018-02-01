@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { DisciplinaService } from '../disciplina.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { InstrutorService } from '../instrutor.service';
 
 @Component({
   selector: 'app-formulario',
@@ -20,8 +21,11 @@ export class FormularioComponent implements OnInit {
     { 'id': 'MOBILE', 'descricao': 'Mobile'}
    ];
   
+  instrutores = [];
+
   constructor(private _formBuilder: FormBuilder, 
               private _disciplinaService: DisciplinaService,
+              private _instrutorService: InstrutorService,
               private _activatedRoute:ActivatedRoute,
               private _router: Router) { 
     
@@ -29,6 +33,11 @@ export class FormularioComponent implements OnInit {
   }
   
   ngOnInit() {
+
+    this._instrutorService.getAll().subscribe(suc => {
+      this.instrutores = suc
+    });
+
     this._activatedRoute.params.subscribe(params=> {
       this.id = params['id'];
       if(this.id) {
