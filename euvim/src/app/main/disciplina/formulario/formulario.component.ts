@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { DisciplinaService } from '../disciplina.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { InstrutorService } from '../instrutor.service';
+import { ProfessorService } from '../professor.service';
+import { FormArray } from '@angular/forms/src/model';
 
 @Component({
   selector: 'app-formulario',
@@ -11,21 +12,23 @@ import { InstrutorService } from '../instrutor.service';
 })
 export class FormularioComponent implements OnInit {
 
-  private id;
-  form: FormGroup;
-
   segmentos = [
     { },
     { 'id': 'BACKEND', 'descricao': 'Backend'}  ,
-    { 'id': 'FONTEND', 'descricao': 'Frontend'},
+    { 'id': 'FRONTEND', 'descricao': 'Frontend'},
     { 'id': 'MOBILE', 'descricao': 'Mobile'}
    ];
   
-  instrutores = [];
+  form: FormGroup;
+  id: null;
+
+  professorSelecionado;
+
+  professores = [];
 
   constructor(private _formBuilder: FormBuilder, 
               private _disciplinaService: DisciplinaService,
-              private _instrutorService: InstrutorService,
+              private _professorService: ProfessorService,
               private _activatedRoute:ActivatedRoute,
               private _router: Router) { 
     
@@ -34,8 +37,8 @@ export class FormularioComponent implements OnInit {
   
   ngOnInit() {
 
-    this._instrutorService.getAll().subscribe(suc => {
-      this.instrutores = suc
+    this._professorService.getAll().subscribe(suc => {
+      this.professores = suc
     });
 
     this._activatedRoute.params.subscribe(params=> {
@@ -44,6 +47,11 @@ export class FormularioComponent implements OnInit {
         this.loadDisciplina();
       }
     });
+  }
+
+  notFound(event) {
+    console.log(event);
+    event.target.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUOeGO8GOMaspOZHx63AX9XtfHlVsIuIrSCU0_bLbDAIPjuzS2";
   }
 
   save() {
@@ -64,6 +72,31 @@ export class FormularioComponent implements OnInit {
     }
   }
 
+  addProfessor() {
+    if(this.professorSelecionado) {
+      let listProfessores = <FormArray>this.form.get("professores");
+      console.log(listProfessores);
+      listProfessores.value.push(this.professorSelecionado.id);
+      this.professorSelecionado.selecionado = true;
+      delete this.professorSelecionado;
+    }
+  }
+
+  removeProfessor(id) {
+    let listProfessores = <FormArray>this.form.get("professores");
+    let index = listProfessores.value.findIndex(item=> item == id);
+
+    if(index > -1) {
+      listProfessores.value.splice(index, 1);
+      this.professores.find(item => item.id == id).selecionado = false;
+    }
+  }
+
+  nomeProfessor(id) {
+    let professor = this.professores.find(item=> item.id == id);
+    return professor ? professor.nome : 'Não localizado';
+  }
+
   clearForm() {
     if(this.id) {
       this._router.navigate(['/main/disciplina/adicionar']);
@@ -77,7 +110,7 @@ export class FormularioComponent implements OnInit {
     this.form = this._formBuilder.group({
         id: [''],
         descricao: ['', Validators.required],
-        instrutores: this._formBuilder.array([]),
+        professores: this._formBuilder.array([]),
         dataInicio: ['', Validators.required],
         dataTermino: ['', Validators.required],
         segmento: ['', Validators.required],
@@ -89,7 +122,7 @@ export class FormularioComponent implements OnInit {
   private loadDisciplina(){
     this._disciplinaService.findById(this.id)
       .subscribe(disciplina => {
-        //delete disciplina.urlFoto;
+        console.log(disciplina);
         this.form.setValue(disciplina);
       });
   }

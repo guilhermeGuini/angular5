@@ -31,25 +31,39 @@
   </div>
 
   <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start">
-      <mat-form-field fxFlex="70">
-          <input matInput formControlName="urlLogo" placeholder="Url Logo">
-          <mat-error *ngIf="form.controls['urlLogo'].hasError('required')">Informe a url logo!</mat-error>
-        </mat-form-field>
-        <img class="logo" fxFlexOffset="10px" src="#" />
+    <mat-form-field fxFlex="70">
+      <input matInput formControlName="urlLogo" placeholder="Url Logo">
+      <mat-error *ngIf="form.controls['urlLogo'].hasError('required')">Informe a url logo!</mat-error>
+    </mat-form-field>
+    <img class="logo" fxFlexOffset="10px" [src]="form.value.urlLogo" (error)="notFound($event)" />
   </div>      
   <div>
-      <mat-form-field fxFlex="70" fxFlex.xs="70">
-          <mat-select placeholder="Instrutores">
-            <mat-option *ngFor="let instrutor of instrutores" [value]="instrutor.id">
-              {{ instrutor.nome }}
-            </mat-option>
-          </mat-select>
-          <!--<mat-error *ngIf="form.controls['instrutor'].hasError('required')">Escolha um instrutor!</mat-error>-->
-      </mat-form-field>
-      <button fxFlexOffset="10px" color="primary" mat-mini-fab type="button">
-        <mat-icon aria-label="Adicionar" matTooltip="Incluir disciplina">add</mat-icon>
-      </button>
+    <mat-form-field fxFlex="70" fxFlex.xs="70">
+      <mat-select placeholder="Professores" [(ngModel)]="professorSelecionado" [ngModelOptions]="{standalone: true}">
+        <ng-container *ngFor="let professor of professores" >
+          <mat-option *ngIf="!professor.selecionado" [value]="professor">
+                {{ professor.nome }}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+      <!--<mat-error *ngIf="form.controls['professor'].hasError('required')">Escolha um professor!</mat-error>-->
+    </mat-form-field>
+    <button (click)="addProfessor()" type="button" fxFlexOffset="10px" color="primary" mat-mini-fab type="button">
+      <mat-icon aria-label="Adicionar" matTooltip="Incluir disciplina">add</mat-icon>
+    </button>
   </div>  
+
+  <mat-list>
+    <mat-list-item *ngFor="let professor of form.value.professores">
+      <div matListIcon>
+        <button type="button" (click)="removeProfessor(professor)" color="warn" mat-mini-fab>
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+
+      <h3 matLine> {{nomeProfessor(professor)}} </h3>
+    </mat-list-item>
+  </mat-list>
 
   <br/>
   <div  fxLayout="row" 

@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { InstrutorService } from './instrutor.service';
+import { ProfessorService } from './professor.service';
 
 describe('InstrutorService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [InstrutorService]
+      providers: [ProfessorService]
     });
   });
 
-  it('should be created', inject([InstrutorService], (service: InstrutorService) => {
+  it('should be created', inject([ProfessorService], (service: ProfessorService) => {
     expect(service).toBeTruthy();
   }));
 });
