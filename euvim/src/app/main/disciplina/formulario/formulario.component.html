@@ -46,7 +46,7 @@
           </mat-option>
         </ng-container>
       </mat-select>
-      <!--<mat-error *ngIf="form.controls['professor'].hasError('required')">Escolha um professor!</mat-error>-->
+      <mat-hint>É necessário informar pelo menos 2 professores</mat-hint>
     </mat-form-field>
     <button (click)="addProfessor()" type="button" fxFlexOffset="10px" color="primary" mat-mini-fab type="button">
       <mat-icon aria-label="Adicionar" matTooltip="Incluir disciplina">add</mat-icon>
@@ -69,7 +69,7 @@
   <div  fxLayout="row" 
     fxFlex="100" fxLayoutAlign="space-between">
       <button
-        [disabled]="form.invalid"
+        [disabled]="form.invalid || form.value.professores.length < 2"
         type="button"  
         color="primary"
         (click)="save()"

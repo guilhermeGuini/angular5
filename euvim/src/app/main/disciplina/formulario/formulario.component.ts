@@ -38,13 +38,26 @@ export class FormularioComponent implements OnInit {
   ngOnInit() {
 
     this._professorService.getAll().subscribe(suc => {
-      this.professores = suc
+      this.professores = suc;
+      this.obterRegistroEdicao();
     });
+  }
 
+  private obterRegistroEdicao() {
     this._activatedRoute.params.subscribe(params=> {
       this.id = params['id'];
       if(this.id) {
-        this.loadDisciplina();
+        this._disciplinaService.findById(this.id)
+            .subscribe(retorno => {
+                let resultado = Object.assign({}, retorno);
+                resultado.professores = [];
+                this.form.setValue(resultado);
+                console.log(retorno);
+                retorno.professores.forEach(element => {
+                  this.professorSelecionado = this.professores.find(item=> item.id == element);
+                  this.addProfessor();
+                });
+              });
       }
     });
   }
@@ -119,12 +132,5 @@ export class FormularioComponent implements OnInit {
     );
   }
 
-  private loadDisciplina(){
-    this._disciplinaService.findById(this.id)
-      .subscribe(disciplina => {
-        console.log(disciplina);
-        this.form.setValue(disciplina);
-      });
-  }
 }
 
