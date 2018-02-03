@@ -41,7 +41,7 @@
     <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef> Ações </mat-header-cell>
         <mat-cell *matCellDef="let disciplina"> 
-          <button mat-icon-button matTooltip="QR Code" (click)="gerarQRCode(disciplina.id)">
+          <button mat-icon-button matTooltip="QR Code" (click)="gerarQRCode(disciplina)">
             <mat-icon class="md-24" aria-label="QR Code">check</mat-icon>
           </button>
           <button mat-icon-button matTooltip="Editar" (click)="edit(disciplina.id)" color="primary">

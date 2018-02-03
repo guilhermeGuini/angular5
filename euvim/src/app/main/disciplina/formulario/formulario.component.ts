@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { DisciplinaService } from '../disciplina.service';
+import { DisciplinaService } from '../../services/disciplina.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ProfessorService } from '../professor.service';
+import { ProfessorService } from '../../services/professor.service';
 import { FormArray } from '@angular/forms/src/model';
 
 @Component({

@@ -1,1 +1,11 @@
-<img src="https://chart.googleapis.com/chart?cht=qr&choe=UTF-8&chs=207x207&chl=1" />
+<h6 mat-dialog-title>
+  Presença {{ data.data | date: 'dd/MM/yyyy' }} 
+</h6>
+
+<h6 mat-dialog-title>
+  Curso <i>{{ data.descricao }}</i>
+</h6>
+
+<div>
+  <img [src]="urlQrCode" />
+</div>

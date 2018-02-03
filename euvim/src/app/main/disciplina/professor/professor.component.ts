@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
-import { ProfessorService } from '../professor.service';
+import { ProfessorService } from '../../services/professor.service';
 
 @Component({
   templateUrl: './professor.component.html',
