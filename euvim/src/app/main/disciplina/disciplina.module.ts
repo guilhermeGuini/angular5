@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
-import { MatTableModule, MatFormFieldModule, MatInputModule, MatOptionModule, MatSelectModule, MatButtonModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE, MatListModule} from '@angular/material';
+import { MatTableModule, MatFormFieldModule, MatInputModule, MatOptionModule, MatSelectModule, MatButtonModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE, MatListModule, MatDialogModule} from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DisciplinaRouting } from './disciplina.routing';
 import { DisciplinaService } from './disciplina.service';
 import { ConsultaComponent } from './consulta/consulta.component';
 import { FormularioComponent } from './formulario/formulario.component';
 import { ProfessorService } from './professor.service';
+import { ProfessorComponent } from './professor/professor.component';
+import { QrcodeComponent } from './qrcode/qrcode.component';
 
 @NgModule({
   imports: [
@@ -29,7 +31,8 @@ import { ProfessorService } from './professor.service';
     FlexLayoutModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule
   ],
   providers: [
     FormBuilder,
@@ -38,6 +41,7 @@ import { ProfessorService } from './professor.service';
     HttpClient, 
     {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'}
   ],
-  declarations: [ConsultaComponent, FormularioComponent]  
+  entryComponents: [ProfessorComponent, QrcodeComponent],
+  declarations: [ConsultaComponent, FormularioComponent, ProfessorComponent, QrcodeComponent]  
 })
 export class DisciplinaModule { }

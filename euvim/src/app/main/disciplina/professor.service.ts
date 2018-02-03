@@ -13,4 +13,8 @@ export class ProfessorService {
     let httpParams = new HttpParams().set("tipo", "PROFESSOR");
     return this._httpClient.get<Array<any>>(this._url, { params: httpParams });
   }
+
+  findById(id) {
+    return this._httpClient.get<any>(this._url + "/" + id);
+  }
 }

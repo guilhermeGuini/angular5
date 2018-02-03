@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatDialog } from '@angular/material';
 import { DisciplinaService } from '../disciplina.service';
 import { Router } from '@angular/router';
+import { ProfessorComponent } from '../professor/professor.component';
+import { QrcodeComponent } from '../qrcode/qrcode.component';
 
 @Component({
   selector: 'app-consulta',
@@ -10,11 +12,12 @@ import { Router } from '@angular/router';
 })
 
 export class ConsultaComponent implements OnInit {
-  displayedColumns = ['descricao', 'instrutores', 'dataInicio', 'dataTermino', 'segmento', 'id'];
+  displayedColumns = ['descricao', 'professores', 'dataInicio', 'dataTermino', 'segmento', 'id'];
   dataSource = null;
 
   constructor(private _disciplinaService: DisciplinaService,
-              private _router: Router) {
+              private _router: Router,
+              private _dialog: MatDialog) {
   }
   
   ngOnInit(): void {
@@ -39,5 +42,19 @@ export class ConsultaComponent implements OnInit {
 
   public edit(id) {
     this._router.navigate(['/main/disciplina/editar', id]);
+  }
+
+  public gerarQRCode(idDisciplina) {
+    let dialogRef = this._dialog.open(QrcodeComponent, {
+      width: '260px',
+      data: { disciplina: idDisciplina}
+    });
+  }
+
+  public exibirProfessores(listProfessores) {
+    let dialogRef = this._dialog.open(ProfessorComponent, {
+      width: '250px',
+      data: { professores: listProfessores }
+    });
   }
 }
