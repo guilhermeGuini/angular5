@@ -6,8 +6,9 @@ import { MainRouting } from './main.routing';
 import { RouterModule } from '@angular/router';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatIconModule, MatSidenavModule, MatCardModule, MatListModule, MatToolbarModule, MatButtonModule} from '@angular/material';
+import { MatIconModule, MatSidenavModule, MatCardModule, MatListModule, MatToolbarModule, MatButtonModule, MatProgressBarModule} from '@angular/material';
 import { AuthGuard } from './auth.guard';
+import { LoadingService } from './services/loading.service';
 
 @NgModule({
   imports: [
@@ -20,10 +21,12 @@ import { AuthGuard } from './auth.guard';
     MatListModule,
     MatToolbarModule,
     MatButtonModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatProgressBarModule
   ],
   providers: [
-    AuthGuard
+    AuthGuard,
+    LoadingService
   ],
   declarations: [
     MainComponent

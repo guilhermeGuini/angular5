@@ -34,8 +34,8 @@
       </button>
       <span>Eu vim</span>
   </mat-toolbar>
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"> </mat-progress-bar>
   <mat-card id="content">
       <router-outlet></router-outlet>
   </mat-card>
-
 </mat-sidenav-container>
