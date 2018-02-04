@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { MatTableModule, MatFormFieldModule, MatInputModule, MatOptionModule, MatSelectModule, MatButtonModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE, MatListModule, MatDialogModule} from '@angular/material';
@@ -12,6 +12,8 @@ import { FormularioComponent } from './formulario/formulario.component';
 import { ProfessorService } from '../services/professor.service';
 import { ProfessorComponent } from './professor/professor.component';
 import { QRCodeComponent } from './qrcode/qrcode.component';
+import { AuthInterceptorService } from '../auth.interceptor.service';
+import { RequestErrorModule } from '../../request-error/request-error.module';
 
 @NgModule({
   imports: [
@@ -32,14 +34,20 @@ import { QRCodeComponent } from './qrcode/qrcode.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatListModule,
-    MatDialogModule
+    MatDialogModule,
+    RequestErrorModule
   ],
   providers: [
     FormBuilder,
     DisciplinaService, 
     ProfessorService,
     HttpClient, 
-    {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'}
+    {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
   ],
   entryComponents: [ProfessorComponent, QRCodeComponent],
   declarations: [ConsultaComponent, FormularioComponent, ProfessorComponent, QRCodeComponent]  

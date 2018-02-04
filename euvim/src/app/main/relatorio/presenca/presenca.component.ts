@@ -13,7 +13,9 @@ export class PresencaComponent implements OnInit {
   public form: FormGroup;
   public disciplinas = [];
   public relatorio = [];
+  public presenca = [];
   public filtred = false;
+  public disciplina = null;
 
   constructor(private _formBuilder: FormBuilder,
               private _disciplinaService: DisciplinaService,
@@ -29,7 +31,13 @@ export class PresencaComponent implements OnInit {
   }
 
   public gerarRelatorio() {
-    this._relatorioService.listarPresencaPorDisciplina(1).subscribe(suc=> {
+    this.filtred = true;
+    this.relatorio = null;
+    this.disciplina = this.disciplinas.find((item) =>  item.id == this.form.value.disciplina );
+
+    this._relatorioService.listarPresencaPorDisciplina(this.form.value)
+    .subscribe(suc=> {
+      console.log(suc);
       this.relatorio = suc;
     });
   }
